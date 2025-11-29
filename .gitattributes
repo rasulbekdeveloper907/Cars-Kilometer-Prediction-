@@ -1,1 +1,2 @@
 Data/Preprosessed/Preprosessed_Simple.csv filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
