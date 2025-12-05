@@ -7,7 +7,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import MinMaxScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 
-class PlayerPipeline(BaseEstimator):   
+class Auto_Pipeline(BaseEstimator):   
     
 
     def __init__(self, df: pd.DataFrame, target: str, model=None):
