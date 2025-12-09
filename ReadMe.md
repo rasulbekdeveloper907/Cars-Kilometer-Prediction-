@@ -9,29 +9,23 @@ The main goal is to build a machine learning model that can accurately predict t
 
 ## 🗂️ Dataset Description
 
-| Column Name           | Data Type | Description |
-|-----------------------|-----------|-------------|
-| index                 | int64     | Row index |
-| dateCrawled           | object    | Date the data was crawled |
-| name                  | object    | Car name/title |
-| seller                | object    | Seller type |
-| offerType             | object    | Offer type |
-| price                 | int64     | Price of the car 💰 |
-| abtest                | object    | A/B test group 🧪 |
-| vehicleType           | object    | Vehicle type 🚙 |
-| yearOfRegistration    | int64     | Year of registration 📅 |
-| gearbox               | object    | Gearbox type ⚙️ |
-| powerPS               | int64     | Horsepower 🐎 |
-| model                 | object    | Car model 🚘 |
-| kilometer             | int64     | **Target: Mileage of the car 🛣️** |
-| monthOfRegistration   | int64     | Month of registration 📆 |
-| fuelType              | object    | Fuel type ⛽ |
-| brand                 | object    | Car brand 🏷️ |
-| notRepairedDamage     | object    | Repair status 🔧 |
-| dateCreated           | object    | Date the ad was created 📄 |
-| nrOfPictures          | int64     | Number of pictures in the ad 📷 |
-| postalCode            | int64     | Postal code of the seller 📮 |
-| lastSeen              | object    | Last seen date of the ad 👀 |
+| Column                 | Description |
+|------------------------|-------------|
+| `index`                | Unique index for each entry |
+| `dateCrawled`          | Date when the listing was crawled |
+| `name`                 | Car listing name |
+| `vehicleType`          | Type of vehicle (e.g., sedan, SUV) |
+| `yearOfRegistration`   | Year when the car was registered |
+| `model`                | Car model |
+| `monthOfRegistration`  | Month when the car was registered |
+| `fuelType`             | Type of fuel (e.g., petrol, diesel) |
+| `brand`                | Brand of the car |
+| `postalCode`           | Postal code of the seller |
+| `lastSeen`             | Last seen timestamp of the listing |
+| `abtest_control`       | A/B test control group indicator |
+| `gearbox_automatik`    | Gearbox type (automatic or manual) |
+| `notRepairedDamage_ja` | Indicates whether car had unrepaired damage |
+| `kilometer_cont`       | Mileage of the car (target variable) |
 
 ---
 
