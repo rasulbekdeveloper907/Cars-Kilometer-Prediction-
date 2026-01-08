@@ -1,27 +1,18 @@
-# Virtual Environment
-venv
-__pycache__
-
-# Jupyter
-.ipynb_checkpoints
-*.ipynb 
-
-# Git 
-.git
-.gitignore
-
-# Data files (training only )
-*.csv
-*.parquet
-data/
-
-# Environment Variables
-.env
-
-# OS  /Logs 
-*.Logs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+myvenv/
+*.git
+*.gitignore
+*.ipynb
+*.tar
+*.tar.gz
 .DS_Store
-
-# models 
-*.pkl
+*.log
+*.csv
+*.xlsx
 *.joblib
+*.h5
