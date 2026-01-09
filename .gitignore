@@ -1,17 +1,35 @@
-venv/
+# Python
 __pycache__/
-*.pyc 
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+venv/
+env/
+myvenv/
+
+# Secrets
 .env
 
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Archives
 *.tar
 *.tar.gz
+*.zip
 
-Data/*
+# Raw data (datasetlar gitga kirmaydi)
+Data/
+raw_data/
 
-Models/*
-
-!Models\Pipeline_Models\RandomForestRegressor_Fast.joblib
-
-
-.DS_Store
-.ipynb_checkpoints/part_*
+# Models folder structure stays,
+# but large models handled by Git LFS
+Models/*.joblib
+Models/*.pkl
+Models/*.h5

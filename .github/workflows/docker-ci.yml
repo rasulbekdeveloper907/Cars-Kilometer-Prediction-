@@ -1,6 +1,5 @@
 name: CI/CD Cars Kilometer Prediction API
 
-
 on:
   push:
     branches: [main]
@@ -10,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository
+      # 1️⃣ Checkout repository (WITH Git LFS)
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          lfs: true   # <<< MUHIM
 
       # 2️⃣ Set up Docker Buildx
       - name: Set up Docker Buildx
@@ -49,7 +50,7 @@ jobs:
         run: |
           curl -f http://localhost:8000/health || docker logs test-container
 
-      # 7️⃣ Show logs (for debugging if needed)
+      # 7️⃣ Show logs
       - name: Show container logs
         if: always()
         run: |

@@ -2,17 +2,22 @@ import joblib
 import pandas as pd
 import gradio as gr
 from pathlib import Path
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # ======================
-# Model yuklash (relative path)
+# Model path (Docker-safe)
 # ======================
-MODEL_PATH = Path(__file__).resolve().parent.parent / "Models/Pipeline_Models/RandomForestRegressor_Fast.joblib"
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR.parent / "Models" / "Pipeline_Models" / "RandomForestRegressor_Fast.joblib"
 
 try:
     model = joblib.load(MODEL_PATH)
-    print("✅ Model loaded successfully")
+    logger.info("Model loaded from %s", MODEL_PATH)
 except Exception as e:
-    print("❌ Failed to load model:", e)
+    logger.error("Failed to load model: %s", e)
     model = None
 
 # ======================
@@ -66,10 +71,8 @@ def predict(
         "lastSeen": lastSeen
     }])
 
-    # Prediction
     predicted_cluster = int(model.predict(df)[0])
 
-    # Probability (multiclass)
     confidence = None
     if hasattr(model, "predict_proba"):
         proba_all = model.predict_proba(df)[0]

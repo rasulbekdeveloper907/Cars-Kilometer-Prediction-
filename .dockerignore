@@ -1,18 +1,33 @@
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Virtual environments
 env/
 venv/
 myvenv/
-*.git
-*.gitignore
-*.ipynb
+
+# Git
+.git/
+.gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+
+# Archives
 *.tar
 *.tar.gz
-.DS_Store
-*.log
-*.csv
-*.xlsx
-*.joblib
-*.h5
+*.zip
+
+# Notebooks
+*.ipynb
+
+# Large raw datasets (lekin modelni saqlaymiz!)
+data/
+raw_data/

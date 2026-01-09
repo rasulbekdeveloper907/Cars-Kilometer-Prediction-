@@ -6,13 +6,13 @@ from pathlib import Path
 import logging
 
 # --------------------------------------------------
-# Logging konfiguratsiyasi
+# Logging
 # --------------------------------------------------
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # --------------------------------------------------
-# Model path (cross-platform)
+# Model path (Docker + Windows + Linux compatible)
 # --------------------------------------------------
 MODEL_PATH = Path("Models") / "Pipeline_Models" / "RandomForestRegressor_Fast.joblib"
 
@@ -34,16 +34,14 @@ def load_model():
     global pipeline
     try:
         pipeline = joblib.load(MODEL_PATH)
-        print("✅ Model loaded successfully")
+        logger.info("Model loaded from %s", MODEL_PATH)
     except Exception as e:
-        print("❌ Failed to load model:", e)
+        logger.error("Failed to load model: %s", e)
         pipeline = None
 
 # --------------------------------------------------
 # Schemas
 # --------------------------------------------------
-from typing import Optional
-
 class DatasetInput(BaseModel):
     index: int
     dateCrawled: str
@@ -91,20 +89,25 @@ def predict(data: DatasetInput):
     if pipeline is None:
         raise HTTPException(status_code=500, detail="Model not loaded")
 
-    # Input → DataFrame (cross Pydantic version)
-    df = pd.DataFrame([data.dict()])
+    # Pydantic v2 compatible
+    df = pd.DataFrame([data.model_dump()])
 
-    # Predict probabilities (multiclass classifier)
     try:
         proba_all = pipeline.predict_proba(df)[0]
     except AttributeError:
-        raise HTTPException(status_code=500, detail="Model is not a classifier and does not support predict_proba")
+        raise HTTPException(
+            status_code=500,
+            detail="Model does not support predict_proba()"
+        )
 
-    logger.debug("DEBUG predict_proba: %s", proba_all)
-
-    # Eng yuqori ehtimollikdagi cluster
     predicted_cluster = int(proba_all.argmax())
     cluster_probability = float(proba_all[predicted_cluster])
+
+    logger.info(
+        "Predicted cluster=%s probability=%.4f",
+        predicted_cluster,
+        cluster_probability
+    )
 
     return PredictionOutput(
         predicted_cluster=predicted_cluster,

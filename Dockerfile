@@ -1,19 +1,29 @@
-FROM python:3.10-slim
+FROM python:3.13-slim
 
-# ishchi papka
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# requirements install
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    libgl1 \
+    ffmpeg \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# project copy qilish
+# requirements.txt ni copy qilamiz
+COPY requirements.txt .
+
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
+
+# Butun projectni copy qilamiz
 COPY . .
 
-# ports
+# FastAPI port
 EXPOSE 8000
-EXPOSE 7860
 
-# CMD: FastAPI + Gradio
-CMD ["sh", "-c", "PYTHONPATH=/app uvicorn app.main:app --host 0.0.0.0 --port 8000 & python demo/app.py"]
-
+# main.py app ichida bo‘lgani uchun:
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
