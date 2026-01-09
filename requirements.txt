@@ -5,7 +5,7 @@ gradio>=4.44.0
 
 # ===== ML / Data =====
 pandas>=2.3.0
-scikit-learn>=1.7.2
+scikit-learn==1.7.2
 joblib>=1.4.2
 
 # ===== Validation =====

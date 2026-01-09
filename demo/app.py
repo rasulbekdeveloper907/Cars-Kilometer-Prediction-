@@ -111,9 +111,10 @@ demo = gr.Interface(
         gr.Textbox(label="Last Seen")
     ],
     outputs=gr.JSON(label="Prediction Result"),
-    title="Car Dataset – Cluster Prediction",
-    description="RandomForestClassifier | Vehicle cluster prediction"
+    title="Car Kilometer Prediction ",
+    description="RandomForestClassifier | Car Kilometer Prediction"
 )
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860)
+    demo.launch(server_name="0.0.0.0", server_port=7860, share=True)
+
